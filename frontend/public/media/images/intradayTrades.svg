@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40">
+  <defs>
+    <linearGradient id="intraGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7c3aed" />
+      <stop offset="100%" stop-color="#3d7fff" />
+    </linearGradient>
+  </defs>
+  <path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6h-6z" fill="none" stroke="url(#intraGrad)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 135 40" width="135" height="40">
+  <rect width="135" height="40" rx="6" fill="#000"/>
+  <path d="M16 20c0-3 2.5-5.5 5.5-5.5s5.5 2.5 5.5 5.5-2.5 5.5-5.5 5.5-5.5-2.5-5.5-5.5z" fill="#00d4ff"/>
+  <path d="M21.5 10c0 2-1.5 3.5-3.5 3.5s-3.5-1.5-3.5-3.5 1.5-3.5 3.5-3.5 3.5 1.5 3.5 3.5z" fill="#00f5a0"/>
+  <text x="38" y="16" fill="#fff" font-size="6.5" font-family="'Space Grotesk', sans-serif" font-weight="700" letter-spacing="0.2">Download on the</text>
+  <text x="38" y="29" fill="#fff" font-size="11" font-family="'Space Grotesk', sans-serif" font-weight="800">App Store</text>
+</svg>

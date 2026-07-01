@@ -1,0 +1,23 @@
+How to run it manually in the terminal:
+You will need three terminal windows open at the same time. Run these commands:
+
+Terminal 1: Backend Service (Port 3002)
+
+bash:
+cd backend
+npm install
+npm start
+
+Terminal 2: Frontend Landing Page (Port 3000)
+
+bash:
+cd frontend
+npm install
+npm start
+
+Terminal 3: Trading Dashboard Portal (Port 3001)
+
+bash:
+cd dashboard
+npm install
+npm start

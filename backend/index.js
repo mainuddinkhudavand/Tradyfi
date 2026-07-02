@@ -17,15 +17,17 @@ const isMock = !uri || uri.includes("<<your_mongoDB_url_here>>");
 
 const corsOptions = {
   origin: (origin, callback) => {
+    const sanitizeUrl = (url) => (url ? url.trim().replace(/\/+$/, "") : "");
     const allowed = [
       "http://localhost:3000",
       "http://localhost:3001",
       "http://127.0.0.1:3000",
       "http://127.0.0.1:3001",
-      process.env.FRONTEND_URL,
-      process.env.DASHBOARD_URL
+      sanitizeUrl(process.env.FRONTEND_URL),
+      sanitizeUrl(process.env.DASHBOARD_URL)
     ].filter(Boolean);
-    if (!origin || allowed.indexOf(origin) !== -1 || process.env.NODE_ENV !== "production") {
+    const originSanitized = sanitizeUrl(origin);
+    if (!origin || allowed.indexOf(originSanitized) !== -1 || process.env.NODE_ENV !== "production") {
       callback(null, true);
     } else {
       callback(new Error("Not allowed by CORS"));

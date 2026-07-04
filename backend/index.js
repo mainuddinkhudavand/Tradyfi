@@ -231,7 +231,14 @@ app.post("/login", async (req, res) => {
   }
 
   if (isMock) {
-    const user = mockUsers.find(u => u.clientId === userid || u.email === userid || u.username === userid);
+    const cleanUserid = userid.replace(/-/g, "").toLowerCase();
+    const user = mockUsers.find(u => {
+      const matchClientId = u.clientId.replace(/-/g, "").toLowerCase() === cleanUserid;
+      const matchEmail = u.email.toLowerCase() === userid.toLowerCase();
+      const matchUsername = u.username.toLowerCase() === userid.toLowerCase();
+      return matchClientId || matchEmail || matchUsername;
+    });
+
     if (!user || !bcrypt.compareSync(password, user.password)) {
       return res.status(401).json({ success: false, message: "Invalid credentials." });
     }
@@ -260,9 +267,29 @@ app.post("/login", async (req, res) => {
     });
   } else {
     try {
+      const cleanUserid = userid.replace(/-/g, "");
+      const possibleClientIds = [
+        userid,
+        userid.toUpperCase(),
+        userid.toLowerCase(),
+        cleanUserid,
+        cleanUserid.toUpperCase(),
+        cleanUserid.toLowerCase()
+      ];
+      if (cleanUserid.toLowerCase().startsWith("ts")) {
+        const numericPart = cleanUserid.slice(2);
+        possibleClientIds.push("TS-" + numericPart);
+        possibleClientIds.push("ts-" + numericPart);
+      }
+
       const user = await UserModel.findOne({
-        $or: [{ clientId: userid }, { email: userid }, { username: userid }]
+        $or: [
+          { clientId: { $in: possibleClientIds } },
+          { email: { $regex: new RegExp("^" + userid + "$", "i") } },
+          { username: { $regex: new RegExp("^" + userid + "$", "i") } }
+        ]
       });
+
       if (!user || !bcrypt.compareSync(password, user.password)) {
         return res.status(401).json({ success: false, message: "Invalid credentials." });
       }

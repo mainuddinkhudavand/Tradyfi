@@ -680,6 +680,42 @@ app.post("/newOrder", authenticateToken, async (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`Backend server started on port ${PORT}!`);
-  mongoose.connect(uri);
-  console.log("Database connection initialized!");
+  mongoose.connect(uri).then(async () => {
+    console.log("Database connection initialized!");
+    if (!isMock) {
+      try {
+        const demoUser = await UserModel.findOne({ clientId: "TS-394851" });
+        if (!demoUser) {
+          const passwordHash = bcrypt.hashSync("password123", 10);
+          await new UserModel({
+            username: "Demo Trader",
+            email: "trader@tradyfi.pro",
+            phone: "9876543210",
+            password: passwordHash,
+            clientId: "TS-394851",
+            funds: 100000.00,
+            marginUsed: 0.00,
+            totalDeposits: 100000.00,
+            totalWithdrawals: 0.00,
+            totalTrades: 18,
+            netPnl: 3740.00
+          }).save();
+          console.log("Demo Trader seeded in MongoDB!");
+
+          // Seed default holdings and positions in MongoDB
+          for (const hold of initialHoldings) {
+            await new HoldingsModel({ ...hold, clientId: "TS-394851" }).save();
+          }
+          for (const pos of initialPositions) {
+            await new PositionsModel({ ...pos, clientId: "TS-394851" }).save();
+          }
+          console.log("Demo Trader portfolio seeded in MongoDB!");
+        }
+      } catch (err) {
+        console.error("Error auto-seeding Demo Trader in MongoDB:", err);
+      }
+    }
+  }).catch(err => {
+    console.error("Database connection failed:", err);
+  });
 });

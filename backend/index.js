@@ -128,6 +128,11 @@ const app = express();
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
 
+// Root health-check endpoint
+app.get("/", (req, res) => {
+  res.send("Tradyfi Pro REST API is running successfully!");
+});
+
 // ── Auth Token Verification Middleware ────────────────────────────────────
 const authenticateToken = (req, res, next) => {
   const authHeader = req.headers["authorization"];

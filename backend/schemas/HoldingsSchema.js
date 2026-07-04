@@ -7,6 +7,8 @@ const HoldingsSchema = new Schema({
   price: Number,
   net: String,
   day: String,
+  clientId: String,
 });
 
 module.exports = { HoldingsSchema };
+

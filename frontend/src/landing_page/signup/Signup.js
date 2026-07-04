@@ -1,39 +1,60 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { DASHBOARD_URL } from "../../config";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { DASHBOARD_URL, BACKEND_URL } from "../../config";
 
 export default function Signup() {
-  const [formData, setFormData] = useState({ name: "", email: "", phone: "", otp: "" });
+  const [formData, setFormData] = useState({ name: "", email: "", phone: "", password: "", otp: "" });
   const [step, setStep] = useState(1); // 1: Info, 2: OTP, 3: Success
   const [loading, setLoading] = useState(false);
+  const [generatedClientId, setGeneratedClientId] = useState("");
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
+    setError("");
   };
 
   const handleNextStep = (e) => {
     e.preventDefault();
     if (step === 1) {
-      if (!formData.email || !formData.phone) {
-        alert("Please enter both email and phone number.");
+      if (!formData.name || !formData.email || !formData.phone || !formData.password) {
+        setError("Please fill out all fields.");
         return;
       }
       setLoading(true);
       setTimeout(() => {
         setLoading(false);
         setStep(2);
-      }, 1200);
+      }, 1000);
     } else if (step === 2) {
       if (!formData.otp) {
-        alert("Please enter the verification OTP.");
+        setError("Please enter the verification OTP.");
         return;
       }
       setLoading(true);
-      setTimeout(() => {
+      axios.post(`${BACKEND_URL}/signup`, {
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        password: formData.password
+      })
+      .then((res) => {
         setLoading(false);
-        setStep(3);
-      }, 1500);
+        if (res.data.success) {
+          setGeneratedClientId(res.data.clientId);
+          setStep(3);
+        } else {
+          setError(res.data.message || "Registration failed.");
+        }
+      })
+      .catch((err) => {
+        setLoading(false);
+        const msg = err.response?.data?.message || "Server error. Please try again.";
+        setError(msg);
+      });
     }
   };
 
@@ -82,6 +103,20 @@ export default function Signup() {
             </p>
           </div>
 
+          {error && (
+            <div style={{
+              background: "rgba(255, 80, 80, 0.1)",
+              border: "1px solid rgba(255, 80, 80, 0.3)",
+              borderRadius: "8px",
+              padding: "12px 16px",
+              color: "#ff6b6b",
+              fontSize: "13px",
+              marginBottom: "16px"
+            }}>
+              {error}
+            </div>
+          )}
+
           {/* Form Steps */}
           {step === 1 && (
             <form onSubmit={handleNextStep} style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
@@ -124,6 +159,19 @@ export default function Signup() {
                 />
               </div>
 
+              <div>
+                <label style={{ display: "block", fontSize: "11px", fontWeight: "700", letterSpacing: "1px", textTransform: "uppercase", color: "var(--text-muted)", marginBottom: "8px" }}>Password</label>
+                <input 
+                  type="password" 
+                  name="password"
+                  placeholder="Choose a password" 
+                  value={formData.password}
+                  onChange={handleInputChange}
+                  style={inputStyle}
+                  required
+                />
+              </div>
+
               <button 
                 type="submit" 
                 className="btn btn-primary btn-lg" 
@@ -142,7 +190,7 @@ export default function Signup() {
                 <input 
                   type="text" 
                   name="otp"
-                  placeholder="Enter 6-digit code" 
+                  placeholder="Enter any 6-digit code" 
                   maxLength="6"
                   value={formData.otp}
                   onChange={handleInputChange}
@@ -157,7 +205,7 @@ export default function Signup() {
                 style={{ width: "100%", marginTop: "12px", height: "54px" }}
                 disabled={loading}
               >
-                {loading ? "Verifying..." : "Verify & Activate Account"}
+                {loading ? "Registering Account..." : "Verify & Activate Account"}
               </button>
 
               <button 
@@ -193,26 +241,20 @@ export default function Signup() {
                 <div style={{ fontSize: "12px", color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "1px", marginBottom: "8px" }}>Account ID Details</div>
                 <div style={{ fontSize: "16px", fontWeight: "700", color: "var(--text-primary)", display: "flex", justifyContent: "space-between" }}>
                   <span>Client Code:</span>
-                  <span className="grad-blue">TS-394851</span>
+                  <span className="grad-blue">{generatedClientId}</span>
                 </div>
                 <div style={{ fontSize: "14px", color: "var(--text-secondary)", marginTop: "6px" }}>
                   Owner: {formData.name || "Investor"}
                 </div>
               </div>
 
-              <a 
-                href={DASHBOARD_URL} 
+              <Link 
+                to="/login" 
                 className="btn btn-primary btn-lg" 
                 style={{ width: "100%" }}
-                onClick={() => {
-                  localStorage.setItem("username", formData.name || "Investor");
-                  localStorage.setItem("clientId", "TS-394851");
-                  localStorage.setItem("userEmail", formData.email || "trader@tradyfi.pro");
-                  localStorage.setItem("userPhone", formData.phone || "+91 98765 43210");
-                }}
               >
-                Enter Tradyfi Dashboard
-              </a>
+                Log In Now →
+              </Link>
             </div>
           )}
 

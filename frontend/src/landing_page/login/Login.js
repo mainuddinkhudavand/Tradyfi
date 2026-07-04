@@ -29,10 +29,11 @@ export default function Login() {
       .then((res) => {
         if (res.data.success) {
           // Save credentials to localStorage
-          localStorage.setItem("username", formData.userid);
-          localStorage.setItem("clientId", formData.userid);
-          localStorage.setItem("userEmail", "trader@tradyfi.pro");
-          localStorage.setItem("userPhone", "+91 98765 43210");
+          localStorage.setItem("token", res.data.token);
+          localStorage.setItem("username", res.data.user.username);
+          localStorage.setItem("clientId", res.data.user.clientId);
+          localStorage.setItem("userEmail", res.data.user.email);
+          localStorage.setItem("userPhone", res.data.user.phone);
           // Redirect to dashboard on success
           window.location.href = DASHBOARD_URL;
         } else {
@@ -40,8 +41,9 @@ export default function Login() {
           setLoading(false);
         }
       })
-      .catch(() => {
-        setError("Server error. Please try again.");
+      .catch((err) => {
+        const msg = err.response?.data?.message || "Server error. Please try again.";
+        setError(msg);
         setLoading(false);
       });
   };

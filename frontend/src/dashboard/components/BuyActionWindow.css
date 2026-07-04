@@ -1,0 +1,4 @@
+/* BuyActionWindow styles are now handled in dashboard/src/index.css */
+/* This file is kept for component-specific overrides only */
+
+.dragging { opacity: 0; }

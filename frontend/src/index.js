@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 import "./index.css";
 
 import HomePage    from "./landing_page/home/HomePage";
@@ -15,21 +15,37 @@ import Navbar      from "./landing_page/Navbar";
 import Footer      from "./landing_page/Footer";
 import ScrollToTop  from "./landing_page/ScrollToTop";
 
+import DashboardHome from "./dashboard/components/Home";
+
+const LandingLayout = () => {
+  return (
+    <>
+      <Navbar />
+      <Outlet />
+      <Footer />
+    </>
+  );
+};
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
     <ScrollToTop />
-    <Navbar />
     <Routes>
-      <Route path="/"        element={<HomePage    />} />
-      <Route path="/signup"  element={<Signup      />} />
-      <Route path="/login"   element={<Login       />} />
-      <Route path="/about"   element={<AboutPage   />} />
-      <Route path="/product" element={<ProductPage />} />
-      <Route path="/pricing" element={<PricingPage />} />
-      <Route path="/support" element={<SupportPage />} />
-      <Route path="*"        element={<NotFound    />} />
+      {/* Landing pages layout (with Global Navbar and Footer) */}
+      <Route element={<LandingLayout />}>
+        <Route path="/"        element={<HomePage    />} />
+        <Route path="/signup"  element={<Signup      />} />
+        <Route path="/login"   element={<Login       />} />
+        <Route path="/about"   element={<AboutPage   />} />
+        <Route path="/product" element={<ProductPage />} />
+        <Route path="/pricing" element={<PricingPage />} />
+        <Route path="/support" element={<SupportPage />} />
+        <Route path="*"        element={<NotFound    />} />
+      </Route>
+
+      {/* Merged Dashboard Portal (No Global Navbar/Footer) */}
+      <Route path="/dashboard/*" element={<DashboardHome />} />
     </Routes>
-    <Footer />
   </BrowserRouter>
 );

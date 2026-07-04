@@ -9,6 +9,8 @@ const PositionsSchema = new Schema({
   net: String,
   day: String,
   isLoss: Boolean,
+  clientId: String,
 });
 
 module.exports = { PositionsSchema };
+

@@ -77,6 +77,9 @@ const Menu = () => {
     else if (path.endsWith("/funds")) setSelectedMenu(4);
     else if (path.endsWith("/apps")) setSelectedMenu(5);
     else setSelectedMenu(0);
+
+    // Auto-close mobile navigation drawer on menu click / redirect
+    window.dispatchEvent(new CustomEvent("close-mobile-sidebar"));
   }, [window.location.pathname]);
 
   // States for settings

@@ -10,7 +10,23 @@ import "../dashboard.css";
 const Home = () => {
   const [authorized, setAuthorized] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const handleToggleSidebar = () => {
+      setMobileSidebarOpen(prev => !prev);
+    };
+    const handleCloseSidebar = () => {
+      setMobileSidebarOpen(false);
+    };
+    window.addEventListener("toggle-mobile-sidebar", handleToggleSidebar);
+    window.addEventListener("close-mobile-sidebar", handleCloseSidebar);
+    return () => {
+      window.removeEventListener("toggle-mobile-sidebar", handleToggleSidebar);
+      window.removeEventListener("close-mobile-sidebar", handleCloseSidebar);
+    };
+  }, []);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -83,7 +99,7 @@ const Home = () => {
   if (!authorized) return null;
 
   return (
-    <div style={{ display: "flex", height: "100vh", overflow: "hidden", background: "#050811" }}>
+    <div className={`dashboard-portal ${mobileSidebarOpen ? "mobile-sidebar-active" : ""}`} style={{ display: "flex", height: "100vh", overflow: "hidden", background: "#050811" }}>
       <Menu />
       <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden" }}>
         <TopBar />

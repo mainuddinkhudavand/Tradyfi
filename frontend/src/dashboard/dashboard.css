@@ -896,3 +896,100 @@ canvas { max-width: 100%; }
   border-color: rgba(0, 212, 255, 0.45) !important;
 }
 
+/* ── Mobile & Tablet Responsiveness (Max Width: 768px) ── */
+@media screen and (max-width: 768px) {
+  /* Topbar Adjustments */
+  .topbar-container {
+    padding-right: 16px !important;
+  }
+  
+  .mobile-hamburger-btn {
+    display: block !important;
+  }
+
+  .indices-container {
+    display: none !important; /* Hide stock index tickers on mobile to save space */
+  }
+
+  .search-wrap input {
+    width: 140px !important; /* Narrower search bar on mobile */
+  }
+
+  /* Dashboard Grid */
+  .dashboard-container {
+    flex-direction: column !important;
+    height: calc(100vh - var(--topbar-h)) !important;
+    overflow-y: auto !important;
+  }
+
+  /* Watchlist & Sidebar */
+  .watchlist-container {
+    width: 100% !important;
+    border-right: none !important;
+    border-bottom: 1px solid var(--glass-border) !important;
+    max-height: 280px !important;
+    overflow-y: auto !important;
+    flex-shrink: 0 !important;
+  }
+
+  /* Slide-in Mobile Menu / Sidebar Drawer */
+  .menu-container {
+    position: fixed !important;
+    top: var(--topbar-h) !important;
+    left: -280px !important; /* Hidden by default */
+    width: var(--watchlist-w) !important;
+    height: calc(100vh - var(--topbar-h)) !important;
+    z-index: 1999 !important;
+    box-shadow: 20px 0 40px rgba(0, 0, 0, 0.6) !important;
+    transition: left 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
+  }
+
+  /* Show mobile sidebar class toggle */
+  .mobile-sidebar-active .menu-container {
+    left: 0 !important;
+  }
+
+  /* Main Workspace Content Area */
+  .content {
+    padding: 16px !important;
+    overflow-y: visible !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Hide vertical graphs on holdings page on mobile */
+  .row {
+    flex-direction: column !important;
+    gap: 16px !important;
+  }
+
+  .col {
+    width: 100% !important;
+  }
+
+  /* Table responsiveness */
+  .order-table {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    width: 100% !important;
+  }
+
+  .order-table table {
+    min-width: 500px !important; /* force scroll instead of squishing columns */
+  }
+
+  /* Modals size adjustment */
+  .card-3d {
+    width: 90% !important;
+    padding: 20px !important;
+  }
+
+  /* Transaction Window positioning */
+  .container#buy-window {
+    width: 90% !important;
+    bottom: 16px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+  }
+}
+

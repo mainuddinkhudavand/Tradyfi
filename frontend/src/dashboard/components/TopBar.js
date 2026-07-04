@@ -26,6 +26,24 @@ const TopBar = () => {
 
   return (
     <div className="topbar-container" style={{ display: "flex", justifyContent: "space-between", paddingRight: "28px" }}>
+      {/* Mobile Hamburger toggle */}
+      <button 
+        className="mobile-hamburger-btn"
+        onClick={() => window.dispatchEvent(new CustomEvent("toggle-mobile-sidebar"))}
+        aria-label="Toggle Navigation Menu"
+        style={{
+          background: "none",
+          border: "none",
+          color: "var(--text-primary)",
+          fontSize: "20px",
+          cursor: "pointer",
+          padding: "0 16px",
+          display: "none"
+        }}
+      >
+        ☰
+      </button>
+
       {/* Indices panel */}
       <div className="indices-container">
         {INDICES.map((idx) => (

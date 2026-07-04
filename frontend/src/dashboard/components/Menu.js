@@ -80,6 +80,7 @@ const Menu = () => {
 
     // Auto-close mobile navigation drawer on menu click / redirect
     window.dispatchEvent(new CustomEvent("close-mobile-sidebar"));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [window.location.pathname]);
 
   // States for settings

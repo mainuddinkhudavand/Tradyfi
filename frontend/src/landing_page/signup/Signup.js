@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
-import { DASHBOARD_URL, BACKEND_URL } from "../../config";
+import { BACKEND_URL } from "../../config";
 
 export default function Signup() {
   const [formData, setFormData] = useState({ name: "", email: "", phone: "", password: "", otp: "" });
@@ -9,7 +9,6 @@ export default function Signup() {
   const [loading, setLoading] = useState(false);
   const [generatedClientId, setGeneratedClientId] = useState("");
   const [error, setError] = useState("");
-  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;

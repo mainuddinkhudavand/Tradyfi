@@ -279,5 +279,6 @@ const inputStyle = {
   color: "var(--text-primary)",
   fontSize: "14.5px",
   outline: "none",
-  transition: "all 0.3s"
+  transition: "all 0.3s",
+  boxSizing: "border-box"
 };

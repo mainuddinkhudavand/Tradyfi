@@ -36,8 +36,8 @@ const BuyActionWindow = ({ uid, mode = "BUY" }) => {
   };
 
   const currentLTP = stockMeta[uid.toUpperCase()] || 100.00;
-  const displayPrice = orderType === "MARKET" ? currentLTP : stockPrice;
-  const marginRequired = displayPrice * Number(stockQuantity);
+  const displayPrice = orderType === "MARKET" ? currentLTP : (Number(stockPrice) || 0);
+  const marginRequired = displayPrice * (Number(stockQuantity) || 0);
 
   const handleOrderClick = () => {
     const token = localStorage.getItem("token");

@@ -19,23 +19,7 @@ const JWT_SECRET = process.env.JWT_SECRET || "tradyfi_jwt_secret_key";
 const isMock = !uri || uri.includes("<<your_mongoDB_url_here>>");
 
 const corsOptions = {
-  origin: (origin, callback) => {
-    const sanitizeUrl = (url) => (url ? url.trim().replace(/\/+$/, "") : "");
-    const allowed = [
-      "http://localhost:3000",
-      "http://localhost:3001",
-      "http://127.0.0.1:3000",
-      "http://127.0.0.1:3001",
-      sanitizeUrl(process.env.FRONTEND_URL),
-      sanitizeUrl(process.env.DASHBOARD_URL)
-    ].filter(Boolean);
-    const originSanitized = sanitizeUrl(origin);
-    if (!origin || allowed.indexOf(originSanitized) !== -1 || process.env.NODE_ENV !== "production") {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
+  origin: true, // Dynamically allow any requesting origin to support Vercel and mobile clients
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true,

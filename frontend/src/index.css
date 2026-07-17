@@ -834,8 +834,19 @@ img { max-width: 100%; display: block; }
   .pricing-cards { grid-template-columns: 1fr; max-width: 420px; margin-left: auto; margin-right: auto; }
 }
 @media (max-width: 768px) {
-  .nav-links, .nav-actions .btn-ghost { display: none; }
+  .nav-links, .nav-actions { display: none !important; }
+  .nav-hamburger { display: flex !important; }
   .section { padding: 72px 0; }
   .trust-stats-side, .edu-cards { grid-template-columns: 1fr 1fr; }
   .footer-top { grid-template-columns: 1fr; }
+  .footer-copy {
+    flex-direction: column !important;
+    gap: 16px !important;
+    align-items: center !important;
+    text-align: center !important;
+  }
+}
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
 }

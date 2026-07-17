@@ -17,8 +17,8 @@ export default function Awards() {
           <div className="awards-img-wrap anim-fade-up">
             <div className="awards-img-bg" aria-hidden="true" />
             {/* Custom SVG broker illustration */}
-            <div className="card-3d" style={{ padding: '48px', textAlign: 'center' }}>
-              <svg width="280" height="240" viewBox="0 0 280 240" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="India's largest broker illustration">
+            <div className="card-3d awards-visual-card">
+              <svg width="280" height="240" viewBox="0 0 280 240" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="India's largest broker illustration" style={{ maxWidth: '100%', height: 'auto' }}>
                 {/* Candle chart */}
                 <rect x="30"  y="100" width="18" height="80" rx="3" fill="rgba(0,245,160,0.6)"/>
                 <line x1="39" y1="85"  x2="39" y2="100" stroke="rgba(0,245,160,0.6)" strokeWidth="2"/>

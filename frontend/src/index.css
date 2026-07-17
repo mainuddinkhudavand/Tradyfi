@@ -733,6 +733,10 @@ img { max-width: 100%; display: block; }
   color: var(--text-muted);
   margin-top: 20px;
 }
+.awards-visual-card {
+  padding: 48px;
+  text-align: center;
+}
 
 /* ════════════════════════════════════════
    BACKGROUND DECORATIONS
@@ -844,6 +848,12 @@ img { max-width: 100%; display: block; }
     gap: 16px !important;
     align-items: center !important;
     text-align: center !important;
+  }
+  .awards-visual-card {
+    padding: 20px !important;
+  }
+  .signup-page-wrapper .card-3d {
+    padding: 24px 20px !important;
   }
 }
 @keyframes fade-in {

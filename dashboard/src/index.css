@@ -985,4 +985,79 @@ hr {
     flex-direction: column;
     height: calc(100vh - var(--topbar-h) - 60px) !important;
   }
+
+  /* Toggle Watchlist vs Content on mobile */
+  .dashboard-container.watchlist-active .content {
+    display: none !important;
+  }
+  .dashboard-container.watchlist-active .watchlist-container {
+    width: 100% !important;
+    height: 100% !important;
+    border-right: none !important;
+  }
+  .dashboard-container.content-active .watchlist-container {
+    display: none !important;
+  }
+  .dashboard-container.content-active .content {
+    width: 100% !important;
+  }
+
+  /* Top Bar adjustments */
+  .indices-container {
+    display: none !important;
+  }
+  .mobile-logo-link {
+    display: flex !important;
+  }
+  .search-wrap input {
+    width: 130px !important;
+  }
+  .topbar-container {
+    padding-right: 16px !important;
+  }
+
+  /* Content area spacing */
+  .content {
+    padding: 16px 16px 28px !important;
+  }
+
+  /* Table responsiveness */
+  .order-table {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+  }
+  .order-table table {
+    min-width: 600px;
+  }
+
+  /* Summary widgets stacking */
+  .data {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 12px !important;
+  }
+  .data hr {
+    display: none !important;
+  }
+
+  /* Row columns stacking (Funds page etc.) */
+  .row {
+    flex-direction: column !important;
+  }
+  .funds {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: stretch;
+  }
+  .funds a {
+    text-align: center;
+  }
+
+  /* Buy window positioning */
+  .container {
+    width: 92% !important;
+    bottom: 80px !important;
+    max-width: 380px;
+  }
 }

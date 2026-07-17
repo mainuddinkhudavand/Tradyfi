@@ -41,6 +41,18 @@ const TopBar = () => {
         ))}
       </div>
 
+      {/* Mobile Logo Link (shown only on mobile) */}
+      <a href="/" className="mobile-logo-link" style={{ display: "none", alignItems: "center", gap: "8px", textDecoration: "none", paddingLeft: "20px" }}>
+        <div className="ts-logo-mark" aria-hidden="true" style={{ width: "30px", height: "30px", borderRadius: "8px", background: "linear-gradient(135deg, #1a2a6c, #2563eb, #00d4ff)", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 0 12px rgba(61,127,255,0.4)" }}>
+          <svg width="16" height="16" viewBox="0 0 22 22" fill="none">
+            <path d="M3 19L11 3L19 19" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M6 13H16" stroke="#00d4ff" strokeWidth="2.5" strokeLinecap="round"/>
+            <circle cx="11" cy="11" r="3" fill="none" stroke="#00f5a0" strokeWidth="1.5"/>
+          </svg>
+        </div>
+        <span className="ts-logo-text" style={{ fontSize: "14px", fontWeight: "700", background: "linear-gradient(90deg, #e8edf5, #00d4ff)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>Tradyfi</span>
+      </a>
+
       {/* Header Right Actions */}
       <div style={{ display: "flex", alignItems: "center", gap: "20px", position: "relative" }}>
         <div className="search-wrap" style={{ position: "relative" }}>
